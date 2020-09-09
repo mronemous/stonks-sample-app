@@ -1,0 +1,19 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: ${KS_APP_NAME}
+  namespace: ${KS_NAMESPACE}
+  labels:
+    app: ${KS_APP_NAME}
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: ${KS_APP_NAME}
+              servicePort: 8080

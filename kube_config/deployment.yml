@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ${KS_APP_NAME}
+  namespace: ${KS_NAMESPACE}
+  labels:
+    app: ${KS_APP_NAME}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${KS_APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${KS_APP_NAME}
+    spec:
+      containers:
+        - name: ${KS_APP_NAME}
+          image: "${ECR_HOST}/${ECR_REPO}:${VERSION}"
+          ports:
+            - containerPort: 80
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KS_APP_NAME
+              value: ${KS_APP_NAME}
+            - name: VERSION
+              value: ${VERSION}
+

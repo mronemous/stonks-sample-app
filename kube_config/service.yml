@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${KS_APP_NAME}
+  namespace: ${KS_NAMESPACE}
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: ${KS_APP_NAME}
+  type: NodePort
